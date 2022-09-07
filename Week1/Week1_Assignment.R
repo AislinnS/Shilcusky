@@ -55,6 +55,13 @@ f
 
 # Export the data frame as a .csv file 
 
+df <- data.frame ('Log' = c('a','b','c','d','e','f','a','b','c','d','e','f','g','h','i'), 'Dog' = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), 'Bog' = c(1,2,3,4,5,7,8,9,13,23,56,74,13,7,9), 'Jog' = c(1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8), 'Sog' = c(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24))
+print (df)
+
+write.csv(df, file="Week 1 Assignment.cvs")
+
+getwd()
+
 # Generate summary statistics of your data frame and copy them as text into your script under a new section heading.
 
 summary(df)
