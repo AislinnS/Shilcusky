@@ -36,14 +36,58 @@ df1
 df1[,-1]
 
 # Create a barplot for one numeric column, grouped by the character vector with 3 unique values
+
+?aggregate
+
+df1$Tigrosa <- as.numeric(1.1,1.2,1.3,1.4,1.5,2.1,2.2,2.3,2.4,2.5,3.1,3.2,3.3,3.4,3.5)
+df1$Pirata
+
+df1.mean <-aggregate(FUN = "mean", df1$Tigrosa ~df1$Pirata)
+df1.mean
+
+
+colnames(df.mean) <- c("Factor","Mean")
+df.mean
+
+barplot(df.mean$Mean)
+
+barplot(df.mean$Mean, names.arg = df.mean$Factor)
+
   # Add error bars with mean and standard deviation to the plot
   # Change the x and y labels and add a title
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
 
 # Create a scatter plot between two of your numeric columns.
+
+plot(df1$Pennsylvinica ~ df1$Tigrosa)
+
   # Change the point shape and color to something NOT used in the example.
+
+?pch
+demo("colors)
+
+plot(df1$Pennsylvinica  ~ df1$Tigrosa, xlab = Explanatory", ylab = "Response", main = "My Favorite Scatter Plot", 
+     cex.axis=0.8, cex.main = 0.5, cex.lab = 1.25, pch=17, col = "grey40")
+
+plot(df1$Pennsylvinica ~ df1$Tigrosa, xlab = "Explanatory", ylab = "Response", main = "Super Spider Stats", 
+     cex.axis=0.8, cex.main = 1.3, cex.lab = 1.25, pch=9, col = "rosybrown1")
+
   # Change the x and y labels and add a title
+
+plot(df1$Pennsylvinica ~ df1$Tigrosa, xlab = "Explanatory", ylab = "Response")
+
   # Export the plot as a JPEG by using the "Export" button in the plotting pane.
+
+setwd("C:/GitHub/Shilcusky")
+
+pdf( file = "Super Spider Stats.pdf", width = 6, height = 6)
+
+par(family = "serif")
+plot(df1$Pennsylvinica ~ df1$Tigrosa, xlab = "Explanatory", ylab = "Response", main = "Super Spider Stats", 
+     cex.axis=0.8, cex.main = 1.3, cex.lab = 1.25, pch=9, col = "rosybrown1", cex = 1.5)
+
+dev.off()
+
 
 # Upload both plots with the script used to create them to GitHub.
   # Follow the same file naming format as last week for the script.
