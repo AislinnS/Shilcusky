@@ -20,7 +20,7 @@ df
 
 df[,-1]
 
-add.row <- data.frame('p',19, 'm', 13, 72)
+add.row <- data.frame('p',"b", 'm', 13, 72)
 
 colnames(add.row) <- colnames(df)
 
@@ -33,16 +33,15 @@ df
 row.names(df1) <- df1$Dolomedes
 df1
 
-df1[,-1]
+df2<- df1[,-1]
 
 # Create a barplot for one numeric column, grouped by the character vector with 3 unique values
 
 ?aggregate
 
-df1$Tigrosa <- as.numeric(1.1,1.2,1.3,1.4,1.5,2.1,2.2,2.3,2.4,2.5,3.1,3.2,3.3,3.4,3.5)
-df1$Pirata
+df1$Tigrosa <- as.numeric(as.character(df1$Tigrosa))
 
-df1.mean <-aggregate(FUN = "mean", df1$Tigrosa ~df1$Pirata)
+df1.mean <-aggregate(FUN = "mean", df1$Tigrosa ~df1$Pardosa)
 df1.mean
 
 
@@ -53,7 +52,7 @@ barplot(df1.mean$Mean)
 
 barplot(df1.mean$Mean, names.arg = df1.mean$Factor)
 
-df1.sd <- aggregate(df1$Tigrosa ~df1$Pirata, FUN = "sd")
+df1.sd <- aggregate(df1$Tigrosa ~df1$Pardosa, FUN = "sd")
 
 colnames(df1.sd) <- c("Factor","StanDev")
 df1.sd
@@ -71,6 +70,8 @@ arrows(b.plot, df1.mean$Mean-df1.sd$StanDev,
        b.plot, df1.mean$Mean+df1.sd$StanDev,angle=90,code=3)
 
   # Change the x and y labels and add a title
+
+
 
 b.plot(df1$Tigrosa ~ df1$Pirata, xlab = "Explanatory", ylab = "Response")
 
