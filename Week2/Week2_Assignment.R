@@ -46,15 +46,38 @@ df1.mean <-aggregate(FUN = "mean", df1$Tigrosa ~df1$Pirata)
 df1.mean
 
 
-colnames(df.mean) <- c("Factor","Mean")
-df.mean
+colnames(df1.mean) <- c("Factor","Mean")
+df1.mean
 
-barplot(df.mean$Mean)
+barplot(df1.mean$Mean)
 
-barplot(df.mean$Mean, names.arg = df.mean$Factor)
+barplot(df1.mean$Mean, names.arg = df1.mean$Factor)
+
+df1.sd <- aggregate(df1$Tigrosa ~df1$Pirata, FUN = "sd")
+
+colnames(df1.sd) <- c("Factor","StanDev")
+df1.sd
+
+b.plot <- barplot(df1.mean$Mean, names.arg = df1.mean$Factor)
 
   # Add error bars with mean and standard deviation to the plot
+
+arrows(b.plot, df1.mean$Mean-df1.sd$StanDev,
+       b.plot, df1.mean$Mean+df1.sd$StanDev,angle=90,code=3)
+
+b.plot <- barplot(df1.mean$Mean, names.arg = df1.mean$Factor, ylim = c(0,5))
+
+arrows(b.plot, df1.mean$Mean-df1.sd$StanDev,
+       b.plot, df1.mean$Mean+df1.sd$StanDev,angle=90,code=3)
+
   # Change the x and y labels and add a title
+
+b.plot(df1$Tigrosa ~ df1$Pirata, xlab = "Explanatory", ylab = "Response")
+
+plot(df1$Tigrosa ~ df1$Pirata, xlab = "Explanatory", ylab = "Response", main = "Super Spider Bars", 
+     cex.axis=0.8, cex.main = 1.3, cex.lab = 1.25, pch=9, col = "rosybrown1")
+
+
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
 
 # Create a scatter plot between two of your numeric columns.
