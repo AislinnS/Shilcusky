@@ -4,7 +4,7 @@ About 9 hours, but around 7-11 hours
 
 # (2) Give one reason why information on the time between peak flow events up- and downstream could be valuable? (4 pts)
 
-It could be useful to implement emergency flood prevention mechanisms to delay flood times
+It could be useful to implement emergency flood prevention mechanisms to delay flood times #This won't delay floods, but would allow for emergency warnings.
 
 # Package scavenger hunt! (12 pts each)
 
@@ -20,7 +20,7 @@ n <- 40 # sample size
 m <- 100 # number of markers
 Xc <- HWClo(HWData(n,m))
 HWGenotypePlot(Xc,plottype=1,main="Heterozygote-homozygote scatterplot")
-# }
+# }#Where is the manipulated version of this function? This was only have of the assignment.
 
         # Depending on the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
     # After running the function example, manipulate a parameter within the function to create a new result. 
@@ -38,7 +38,7 @@ HWGenotypePlot(Xc,plottype=1,main="Heterozygote-homozygote scatterplot")
 
 install.packages("vegan")
 library(vegan)
-
+#This is a useful group of functions we will discuss later in the semester, but does not display Simpson diversity.
 op <- par(mar=c(4,4,8,8)+0.2, mfrow=c(2,2))
 data(BCI)
 dis <- vegdist(BCI)
@@ -61,6 +61,7 @@ op <- palette(c(palette("default"), "sienna"))
 plot(ord, pch = 16, col = dom, n.col = dom) 
 palette(op)
 
+#Where is the manipulated function??? Both plots saved are also identical.
 
         # Depending on the example usage of the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
     # After running the function example, modify your script to generate another diversity metric that is NOT part of the example. 
