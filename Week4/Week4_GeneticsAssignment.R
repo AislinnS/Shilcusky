@@ -18,6 +18,7 @@ data('ge_data')
 # Create two linear models for Yield Response: one related to the Environment and one to the Genotype. (2 points each)
 
 plot('ge_data')
+head('ge_data')
 
   # 'Yield Response' in this dataset is a measure of phenotype expression.
   # Hint: Look at the help file for this dataset.
