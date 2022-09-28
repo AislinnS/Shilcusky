@@ -7,6 +7,8 @@ The plot generates the same data with a random perspective upon each generation,
 
 Both seq16 and seq5 are both equal distance, 10 dots, from seq24. Each of those seq have the same distance apart
 
+#This is not the Dryad dataset.
+
 # For your scripting assignment we will use the "ge_data" data frame found in the "stability" package.
   # Install the "stability" package, load it into your R environment, and use the data() function to load the "ge_data". (2 points)
 
@@ -34,9 +36,12 @@ summary (Spooder)
   # Which model is a better fit to explain the yield response, and WHY? (6 points)
 
 The ge_data$Env model is the best fit because it has a higher r-squared value compared to ge_data$Gen model. The lower the r-value, the lower the signifigance is in terms of the relationship.  shows the difference between sample means,indicating a lower variation between the genetic model than the environment model. An r-value of 1 is perfect while an r-value of 0 is not ideal, therefore the r-value of Env, 0.4359 is much better than that of Gen, 0.1183
+#R-squared and significance are not the same thing. It does NOT show lower variation in the gen model than the env - exactly the opposite!
 
   # Hint: Does one model seem more likely to be over-fitted?
 
 # Which environment would be your very WORST choice for generating a strong yield response? (2 points)
 
 The Sargodha environment, from the Pr of f, has a p-value of 0.7138, which is significantly higher than the rest. The higher the p-value is, the more variation there is between points.
+
+#Not an appropriate use of 'significant' here. Remember this is a stats class...
