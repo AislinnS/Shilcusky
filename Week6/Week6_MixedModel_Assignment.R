@@ -1,8 +1,16 @@
 # Read in the "Toscano_Griffen_Data.csv" data from GitHub and load the three packages we used in the tutorial this week.
 # The paper these data came from is uploaded to Canvas as "Toscano&Griffen_2014_JAE..."
 
+library(MASS)
+library(MuMIn)
+library(mgcv)
 
 # First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from the tutorial. 
+
+glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
+proportion of mussles needed
+look at the paper to see what to plug
+
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
     # In one model only include additive effects.
     # In the other model include one interactive effect.
