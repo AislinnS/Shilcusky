@@ -5,7 +5,7 @@ library(dplyr)
 library(reshape2)
 
 
-data <- read.csv(file=("c:\Github\Shilcusky"), header=T)
+data <- read.csv(file=("/Shilcusky/Documents/GitHub/Shilcusky/Week5/Figure4Data.csv"), header=T)
 
 # Originally (in 2017-04-12 script) I used unweighted means for ordering strains
 #  but used weighted means for plotting size distributions
@@ -110,7 +110,7 @@ myplot <- ggplot(data = data.weight,
   annotate('text', x=8, y=-0.5, label="115") +
   annotate('text', x=9, y=-0.5, label="103")
 
-ggsave(filename=paste("C:\Github\Shilcusky",
+ggsave(filename=paste("/Shilcusky/Documents/GitHub/Shilcusky/Week5/Figure4Data.csv",
                       paste("Figure4", ".png", sep=""), sep=""), plot=myplot,
        width = 10, height = 4, bg = 'transparent')
 
