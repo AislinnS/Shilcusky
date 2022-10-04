@@ -8,7 +8,7 @@ library(mgcv)
 # First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from the tutorial. 
 
 glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
-proportion of mussles needed
+proportion of mussles needed, or muscles prey and eaten?
 look at the paper to see what to plug
 
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
