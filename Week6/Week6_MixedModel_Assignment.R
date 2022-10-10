@@ -1,15 +1,17 @@
 # Read in the "Toscano_Griffen_Data.csv" data from GitHub and load the three packages we used in the tutorial this week.
 # The paper these data came from is uploaded to Canvas as "Toscano&Griffen_2014_JAE..."
 
+df <- read.csv("Toscano_Griffen_Data.csv")
+
 library(MASS)
 library(MuMIn)
 library(mgcv)
 
 # First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from the tutorial. 
 
-glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
-proportion of mussles needed, or muscles prey and eaten?
-look at the paper to see what to plug
+gam.mod1 <- gam(eaten~activity.level, family = gaussian, random = list(ID=~ 1), data = df)
+plot(gam.mod1)
+
 
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
     # In one model only include additive effects.
