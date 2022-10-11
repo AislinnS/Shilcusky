@@ -9,14 +9,31 @@ library(mgcv)
 
 # First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from the tutorial. 
 
-gam.mod1 <- gam(eaten~activity.level, family = gaussian, random = list(ID=~ 1), data = df)
-plot(gam.mod1)
+glmm.mod <- glmmPQL(eaten~activity.level, family = gaussian, random = ~ 1 | block, data = df)
+plot(glmm.mod)
+
+r.squaredGLMM(glmm.mod)
 
 
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
     # In one model only include additive effects.
+
+glmm.mod1 <- glmmPQL(eaten~activity.level + toadfish.cue.treatment, family = poisson, random = ~ 1 | block, data = df)
+plot(glmm.mod1)
+summary(glmm.mod1)
+r.squaredGLMM(glmm.mod1)
+
     # In the other model include one interactive effect.
+
+glmm.mod2 <- glmmPQL(eaten~activity.level * toadfish.cue.treatment, family = quasi, random = ~ 1 | block, data = df)
+plot(glmm.mod2)
+summary(glmm.mod2)
+r.squaredGLMM(glmm.mod2)
+
+?family
     # Use a binomial distribution and block as a random effect in both models to match the paper's analyses. Remember ?family to find distribution names.
+
+glmm.mod <- glmmPQL(eaten~activity.level, family = quasipoisson, random = ~ 1 | block, data = df)
 
 # The authors used proportional consumption of prey as the (y) in their model, but did not include this in the dataset.
   # So we are going to create it - run the following line, assuming df= your data frame (feel free to change that):
