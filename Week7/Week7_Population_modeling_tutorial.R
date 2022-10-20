@@ -115,6 +115,7 @@ matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
 legend("topright", c("Rabid foxes", "Cute bunnies"), lty = c(1,2), col = c(1,2), box.lwd = 0)
 
 # Increase in alpha:
+
 Pars <- c(alpha = 4, beta = 0.5, gamma = .2, delta = .6)
 out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time))
 

@@ -31,7 +31,7 @@ D. mendotae is most likely to be r-selected prey and its primary predator would 
 
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
 
-It may serve as a confounding variable that affects the relationship between the first two species.
+It may serve as a confounding variable that affects the relationship between the first two species, it could be parasitic to one of the first two species.
 
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
 
@@ -43,8 +43,12 @@ LotVmod <- function (Time, State, Pars) {
   })
 }
 
+Pars <- c(alpha = 2, beta = 0.5, gamma = .2, delta = .6) #This is the line we will change
+State <- c(x = 10, y = 10)#For now keep this the same.
+Time <- seq(0, 100, by = 1)#For now keep this the same.
+out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time))
 
-matplot(df[,-1], type = "l", xlab = "time", ylab = "population")
+matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
 legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
 
 
@@ -53,23 +57,28 @@ library(deSolve)
 
 # (2) - What do alpha, beta, gamma, and delta represent in this function? (4 pts)
 
-Alpha represents how well Limncalanus competes with D.mendotae. Beta represents how well D.mendotae competes with Limcalanus. Delta represents the rate of Limncalanus consumption/die off.
+Alpha represents how well Limncalanus competes with D.mendotae (prey population growth). Beta represents how well D.mendotae competes with Limcalanus (population stability). Delta represents the rate of Limncalanus consumption (die off rate).
 
 # (3) - By only changing values for alpha, beta, gamma, and/or delta
 # change the default parameters of the L-V model to best approximate the relationship between Limncalanus and D.mendotae, assuming both plots are on the same time scale.
 
-library(EcoVirtual)
-compLV(n01=10, n02=10,r1=0.05, r2=0.03, k1=80, k2=50, alfa=1.2, beta=0.5, tmax=200)
-compLV(n01=10, n02=10,r1=0.05, r2=0.03, k1=80, k2=50, alfa=1.2, beta=0.3, tmax=400)
+
+Pars <- c(alpha = 3.7, beta = 0.2, gamma = .2, delta = .6)
+df <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time))
+
+matplot(df[,-1], type = "l", xlab = "time", ylab = "population")
+legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
+
 
 # What are the changes you've made to alpha, beta, gamma, and delta from the default values; and what do they say in a relative sense about the plankton data? (4 pts)
 
-I changed the beta value, making species 2 a better competititor, showing a longer growth rate to the population trajectory.
+I increased the alpha value and decreased the beta value. This shows that both species are interconnected and that plankton communities are easily succeptable to changes in rates of predation in relation to stability of a population
 
 # Are there other paramenter changes that could have created the same end result? (2 pts)
+
+Yes, the environment that both species exist in could create a different predator-prey dynamic with a more or less expedited growth rate.
+
 # Export your final L-V plot with a legend that includes the appropriate genus and/or species name as if the model results were the real plankton data, 
 # and upload with your script. (hint - remember which one is the predator and which is the prey)
-
-
 
 
