@@ -1,5 +1,6 @@
 # Load the "anytime" and "ggplot2" packages to complete this week's assignment.
 # Read the "Plankton_move_average" CSV in from GitHub. 
+#Where are you reading in the data or loading the libraries?
 
 df <- read.csv("Plankton_move_average.csv")
 View(Plankton_move_average)
@@ -32,9 +33,10 @@ D. mendotae is most likely to be r-selected prey and its primary predator would 
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
 
 It may serve as a confounding variable that affects the relationship between the first two species, it could be parasitic to one of the first two species.
+#What do you mean by confounding variable?
 
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
-
+#Library?
 LotVmod <- function (Time, State, Pars) {
   with(as.list(c(State, Pars)), {
     dx = x*(alpha - beta*y)
@@ -51,13 +53,14 @@ out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time))
 matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
 legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
 
-
+#Out of order
 library(deSolve)
 
 
 # (2) - What do alpha, beta, gamma, and delta represent in this function? (4 pts)
 
 Alpha represents how well Limncalanus competes with D.mendotae (prey population growth). Beta represents how well D.mendotae competes with Limcalanus (population stability). Delta represents the rate of Limncalanus consumption (die off rate).
+#Gamma?
 
 # (3) - By only changing values for alpha, beta, gamma, and/or delta
 # change the default parameters of the L-V model to best approximate the relationship between Limncalanus and D.mendotae, assuming both plots are on the same time scale.
@@ -73,10 +76,11 @@ legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), b
 # What are the changes you've made to alpha, beta, gamma, and delta from the default values; and what do they say in a relative sense about the plankton data? (4 pts)
 
 I increased the alpha value and decreased the beta value. This shows that both species are interconnected and that plankton communities are easily succeptable to changes in rates of predation in relation to stability of a population
-
+#How does that specifically relate to alpha and beta? i.e. prey growth and predation?
 # Are there other paramenter changes that could have created the same end result? (2 pts)
 
 Yes, the environment that both species exist in could create a different predator-prey dynamic with a more or less expedited growth rate.
+#True, but not what the question is asking. What variables could you change?
 
 # Export your final L-V plot with a legend that includes the appropriate genus and/or species name as if the model results were the real plankton data, 
 # and upload with your script. (hint - remember which one is the predator and which is the prey)
