@@ -168,11 +168,10 @@ fit.nbinom <- fitdist(soil.plants$Leaves, distr = "nbinom")
 fit.logis <- fitdist(soil.plants$Leaves, distr = "logis")
 fit.geom <- fitdist(soil.plants$Leaves, distr = "geom")
 
-#Use AIC comparisons of distributions to see which is best:
-#call from:
+
 gofstat(list(fit.weibull, fit.norm, fit.gamma, 
              fit.lnorm, fit.nbinom, fit.logis, fit.geom))
-# Log normal is clearly the best fit. 
+
 
 
 # While we have not checked the distribution of the $Leaves response, this is a good indication we just might be able to get away with a linear model. 
