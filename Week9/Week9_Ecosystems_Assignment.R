@@ -72,7 +72,7 @@ fit.geom <- fitdist(soil.plants$Leaves, distr = "geom")
 gofstat(list(fit.weibull, fit.norm, fit.gamma, 
              fit.lnorm, fit.nbinom, fit.logis, fit.geom))
 
-
+hhh
 
 
 #Explain the ecological importance of the significant predictors, or lack of significant predictors.
