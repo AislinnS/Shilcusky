@@ -34,8 +34,8 @@ abiotic.means2 <- as.data.frame(sapply(abiotic.means1, as.numeric ))
 
 library(vegan)
 colnames(abiotic.means2)
-ord <- rda(invertebrate.means2 ~ totalN, abiotic.means2)
-plot(ord, ylim = c(-2,2), xlim = c(-4,5))
+ord <- rda(invertebrate.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
+plot(ord)
 anova(ord)
 
 ord <- rda(invertebrate.means2 ~., abiotic.means2)
@@ -52,78 +52,32 @@ Aluminum is the only signifigant predictor variable with an r2 adjusted value of
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
 
-plants.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data_intro_exp_4_species")
-plants <- as.data.frame(plants.tibble)
 
-abiotic.means2$Parcel <- unique(abiotic$Parcel)
+colnames(invertebrate.means2)
 
-soil.plants <- merge(abiotic.means2, plants, by = "Parcel")
-View(soil.plants)
-
-library(fitdistrplus)
-library(logspline)
-
-fit.weibull <- fitdist(soil.plants$Leaves, distr = "weibull")
-fit.norm <- fitdist(soil.plants$Leaves, distr = "norm")
-fit.gamma <- fitdist(soil.plants$Leaves, distr = "gamma")
-fit.lnorm <- fitdist(soil.plants$Leaves, distr = "lnorm")
-fit.nbinom <- fitdist(soil.plants$Leaves, distr = "nbinom")
-fit.logis <- fitdist(soil.plants$Leaves, distr = "logis")
-fit.geom <- fitdist(soil.plants$Leaves, distr = "geom")
-
-gofstat(list(fit.weibull, fit.norm, fit.gamma, 
-             fit.lnorm, fit.nbinom, fit.logis, fit.geom))
-
-colnames(soil.plants)
-
-mod1 <- lm(Leaves ~ pH + totalN + Kalium + Magnesium + Ca + Al + TotalP + Land_use + Species_code,soil.plants)
-summary(mod1)
-anova(mod1)
+mod1 <- lm(invertebrate.means2$Curculionoidea ~ pH ,abiotic.means2)
 AIC(mod1)
 
-summary(mod1)$adj.r.squared
+mod2 <- lm(invertebrate.means2$Curculionoidea ~ totalN ,abiotic.means2)
+AIC(mod2)
 
-mod2 <- lm(Leaves ~ pH + totalN + Kalium + Species_code,soil.plants)
-summary(mod2)
-anova(mod2)
-AIC(mod1,mod2)
-
-plot(mod2$residuals)
-
-summary(mod2)$adj.r.squared
-
-mod3 <- lm(Leaves ~ pH + totalN + Species_code,soil.plants)
-summary(mod3)
-anova(mod3)
+mod3 <- lm(invertebrate.means2$Curculionoidea ~ Ca,abiotic.means2)
 AIC(mod2, mod3)
-plot(mod3$residuals)
-summary(mod3)$adj.r.squared
 
-mod4 <- lm(Leaves ~ pH*totalN*Kalium + Species_code,soil.plants)
-summary(mod4)
-anova(mod4)
+mod4 <- lm(invertebrate.means2$Curculionoidea ~ TotalP,abiotic.means2)
 AIC(mod2,mod3,mod4)
-plot(mod4$residuals)
-summary(mod4)$adj.r.squared
 
-mod5 <- lm(Leaves ~ pH + Kalium + totalN*Species_code,soil.plants)
-summary(mod5)
-anova(mod5)
+mod5 <- lm(invertebrate.means2$Curculionoidea ~ Magnesium,abiotic.means2)
 AIC(mod2,mod3,mod4,mod5)
-plot(mod5$residuals)
-summary(mod5)$adj.r.squared
 
-mod6 <- lm(Leaves ~ Kalium + pH*totalN*Species_code,soil.plants)
-summary(mod6)
-anova(mod6)
-AIC(mod2,mod3,mod4,mod5,mod6)
-plot(mod6$residuals)
-summary(mod6)$adj.r.squared
 
 #Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
-The effect of some predictors being removed, such as magnesium and phosphorus, do not have a significant ecological importance because while their removal slightly alters the position of data points,it does not result in the production of a linear model. 
+The effect of some predictors being removed, such as magnesium and totalP, do not have a significant ecological importance because while their removal slightly alters the position of data points,it does not result in the production of a linear model. 
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
-The minimal shift of the overall composition of the data points on the graph after the removal of various indicators shows that the majority of ecological predictors present are insignificant. Abiotic factors can limit or reduce the influence of biotic factors by limiting them because they are ultimatally connected in a feedback loop. The structure of the environment affects its functions, in turn affecting the cological composotion and processes in an ecosystem.
+mod6 <- lm(invertebrate.means2$Curculionoidea ~ pH * totalN, abiotic.means2)
+AIC(mod2,mod3,mod4,mod5,mod6)
+
+The minimal shift of the overall composition of the data points on the graph after the removal of various indicators shows that the majority of ecological predictors present are insignificant. Abiotic factors can limit or reduce the influence of biotic factors by limiting them because they are ultimatally connected in a feedback loop. The structure of the environment affects its functions, in turn affecting the cological composotion and processes in an ecosystem. An additive model can be used to determine the significance of predictor variable's effects and an interactive model, which multiplies the variables together, can be used as well. In an additive model, factors are not necessarily limiting or relying on eachother, but in an interactive model they directly are reliant on and affect one another. 
