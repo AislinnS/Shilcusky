@@ -57,6 +57,8 @@ plants <- as.data.frame(plants.tibble)
 
 abiotic.means2$Parcel <- unique(abiotic$Parcel)
 
+soil.plants <- merge(abiotic.means2, plants, by = "Parcel")
+View(soil.plants)
 
 library(fitdistrplus)
 library(logspline)
@@ -72,13 +74,56 @@ fit.geom <- fitdist(soil.plants$Leaves, distr = "geom")
 gofstat(list(fit.weibull, fit.norm, fit.gamma, 
              fit.lnorm, fit.nbinom, fit.logis, fit.geom))
 
-hhh
+colnames(soil.plants)
 
+mod1 <- lm(Leaves ~ pH + totalN + Kalium + Magnesium + Ca + Al + TotalP + Land_use + Species_code,soil.plants)
+summary(mod1)
+anova(mod1)
+AIC(mod1)
+
+summary(mod1)$adj.r.squared
+
+mod2 <- lm(Leaves ~ pH + totalN + Kalium + Species_code,soil.plants)
+summary(mod2)
+anova(mod2)
+AIC(mod1,mod2)
+
+plot(mod2$residuals)
+
+summary(mod2)$adj.r.squared
+
+mod3 <- lm(Leaves ~ pH + totalN + Species_code,soil.plants)
+summary(mod3)
+anova(mod3)
+AIC(mod2, mod3)
+plot(mod3$residuals)
+summary(mod3)$adj.r.squared
+
+mod4 <- lm(Leaves ~ pH*totalN*Kalium + Species_code,soil.plants)
+summary(mod4)
+anova(mod4)
+AIC(mod2,mod3,mod4)
+plot(mod4$residuals)
+summary(mod4)$adj.r.squared
+
+mod5 <- lm(Leaves ~ pH + Kalium + totalN*Species_code,soil.plants)
+summary(mod5)
+anova(mod5)
+AIC(mod2,mod3,mod4,mod5)
+plot(mod5$residuals)
+summary(mod5)$adj.r.squared
+
+mod6 <- lm(Leaves ~ Kalium + pH*totalN*Species_code,soil.plants)
+summary(mod6)
+anova(mod6)
+AIC(mod2,mod3,mod4,mod5,mod6)
+plot(mod6$residuals)
+summary(mod6)$adj.r.squared
 
 #Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
-The f value typically shows significance, but nitrogen, our predictor variable, does not show statistical significance at 0.7111.
+The effect of some predictors being removed, such as magnesium and phosphorus, do not have a significant ecological importance because while their removal slightly alters the position of data points,it does not result in the production of a linear model. 
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
-additive and interactive
+The minimal shift of the overall composition of the data points on the graph after the removal of various indicators shows that the majority of ecological predictors present are insignificant. Abiotic factors can limit or reduce the influence of biotic factors by limiting them because they are ultimatally connected in a feedback loop. The structure of the environment affects its functions, in turn affecting the cological composotion and processes in an ecosystem.
