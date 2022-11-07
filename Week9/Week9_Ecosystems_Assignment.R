@@ -1,6 +1,7 @@
 # For this week it's time to start exploring your own ideas and questions in R.
   # There are at least five options in the dataset to create the following comparisons.
-
+#Where are you setting the working directory to read in your data??
+setwd("C:/GitHub/Shilcusky/Week9")
 library(readxl)
 
 invertebrate.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Invertebrate_community")
@@ -49,6 +50,7 @@ step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 # Explain the ecological importance of your significant predictor variables, or the importance if none are significant for your community.
 
 Aluminum is the only signifigant predictor variable with an r2 adjusted value of 0.02. R2 values under 0.00 are non-signifigant, indicating that there is only 1 significant predictor variable.
+#Except the p value for Al is 0.175, so it is NOT significant! Don't forget that R squared is only a part of the story.
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
 
@@ -74,10 +76,20 @@ AIC(mod2,mod3,mod4,mod5)
 #Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
 The effect of some predictors being removed, such as magnesium and totalP, do not have a significant ecological importance because while their removal slightly alters the position of data points,it does not result in the production of a linear model. 
+#All of these produce a linear model! That is what lm() is doing.
+#You did not test the significance of any of these models or look at the summary output to interpret the relationship between them with anova() or summary()
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
 mod6 <- lm(invertebrate.means2$Curculionoidea ~ pH * totalN, abiotic.means2)
 AIC(mod2,mod3,mod4,mod5,mod6)
 
-The minimal shift of the overall composition of the data points on the graph after the removal of various indicators shows that the majority of ecological predictors present are insignificant. Abiotic factors can limit or reduce the influence of biotic factors by limiting them because they are ultimatally connected in a feedback loop. The structure of the environment affects its functions, in turn affecting the cological composotion and processes in an ecosystem. An additive model can be used to determine the significance of predictor variable's effects and an interactive model, which multiplies the variables together, can be used as well. In an additive model, factors are not necessarily limiting or relying on eachother, but in an interactive model they directly are reliant on and affect one another. 
+The minimal shift of the overall composition of the data points on the graph after the removal of various indicators shows that the majority of ecological predictors present are insignificant. 
+Abiotic factors can limit or reduce the influence of biotic factors by limiting them because they are ultimatally connected in a feedback loop. 
+The structure of the environment affects its functions, in turn affecting the cological composotion and processes in an ecosystem. 
+An additive model can be used to determine the significance of predictor variables effects and an interactive model, which multiplies the variables together, can be used as well. 
+In an additive model, factors are not necessarily limiting or relying on eachother, but in an interactive model they directly are reliant on and affect one another. 
+
+#How do the linear models and rda relate to each other? What graphs are you talking about? You only plotted one rda so there is nothing for comparison.
+#This answer was supposed to be a synthesis for your specific results.
+#Also, never use "insignificant" when talking about stats!
