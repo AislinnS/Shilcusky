@@ -7,12 +7,62 @@
 #Groupings by habits include the swimmers (off limits for the assignment) as most mobile, sprawlers as 2nd (they move in search of food, but not quickly),
     #and the clingers come in last (they might move up and down on individual rocks).
 
+library(spdep)
+library(adespatial)
+library(vegan)
+
+PatchLatLon.csv <- read.csv("PatchLatLon.csv", header=T)
+BugsByPatch.csv <- read.csv("BugsByPatch.csv", header=T)
+HabitatbyPatch.csv <- read.csv("HabitatbyPatch.csv", header=T)
+Swimmers.csv <- read.csv("Swimmers.csv", header=T)
+
+PatchLatLon.mat <- as.matrix(PatchLatLon.csv[,-1])
+BugsByPatch.mat <- as.matrix(BugsByPatch.csv)
+HabitatbyPatch.mat <- as.matrix(HabitatbyPatch.csv)
+Swimmers.mat <- as.matrix(Swimmers.csv)
+
+Diptera.csv <- read.csv("Diptera.csv")
+Diptera.mat <- as.matrix(Diptera.csv)
+
+Sprawlers.csv<- read.csv("Sprawlers.csv")
+Sprawlers.mat <- as.matrix(Sprawlers.csv)
+
+nb<-cell2nb(3,30,"queen")
+nb1 <- droplinks(nb, 19, sym=TRUE)
+nb2 <- droplinks(nb1, 22, sym=TRUE)
+nb3 <- droplinks(nb2, 25, sym=TRUE)
+nb4 <- droplinks(nb3, 30, sym=TRUE)
+
+bin.mat <- aem.build.binary(nb4, PatchLatLon.mat, unit.angle = "degrees", rot.angle = 90, rm.same.y = TRUE, plot.connexions = TRUE)
+plot(PatchLatLon.mat[,2]~PatchLatLon.mat[,3], xlim = rev(c(76.75,77)))
+
+aem.ev <- aem(aem.build.binary=bin.mat)
+aem.df <- aem.ev$vectors[c(-19,-22,-25,-30),]
+aem.df
+
+Space.rda <- rda(Diptera.mat, as.data.frame(aem.df))
+Space.r2a <- RsquareAdj(Space.rda)$adj.r.squared
+
+aem.fwd <- forward.sel(Diptera.mat,aem.df, adjR2thresh=Space.r2a)
+aem.fwd$order
+
+SpaceNoHab.rda <- rda(Diptera.mat, as.data.frame(aem.df[,aem.fwd$order]), HabitatbyPatch.mat)
+SpaceNoHab.rda 
+anova(SpaceNoHab.rda, perm.max = 10000)
+RsquareAdj(SpaceNoHab.rda)
+
+HabNoSpace.rda <- rda(Diptera.mat, HabitatbyPatch.mat, as.data.frame(aem.df[,aem.fwd$order]))
+HabNoSpace.rda 
+anova(HabNoSpace.rda, perm.max = 10000)
+RsquareAdj(HabNoSpace.rda)
 
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
+Constrained for the SpaceNoHabitat has the larger proportion at 0.4183, therefore this means that space and habitat can act independently on a community. Diptera have the strongest flight ability, therefore their habitat type is not restrained by distance they would need to travel.
 
-#Part 3: For each of your chosen groups of bugs, perform variable selection for the habitat data rather than the AEM data. Which habitat variables are significant for each? (10 points)
+
+#Part 3: For each of your chosen groups of bugs, perform variable selection for the habitat data rather than the AEM data.
   # Definitions for the habitat column names:
     #Inorg = total suspended inorganic solids in the water column
     #Organ = total suspended organic solids in the water column
@@ -24,5 +74,23 @@
     #AveAr = The average size of rocks where each sample was collected
 
 
+Sprawlers.rda <- rda(HabitatbyPatch.mat, as.data.frame(aem.df))
+Sprawlers.r2a <- RsquareAdj(Space.rda)$adj.r.squared
+
+aem.fwd <- forward.sel(HabitatbyPatch.mat,aem.df, adjR2thresh=Space.r2a)
+
+Diptera.rda <- rda(HabitatbyPatch.mat, as.data.frame(aem.df))
+Diptera.r2a <- RsquareAdj(Space.rda)$adj.r.squared
+
+aem.fwd <- forward.sel(HabitatbyPatch.mat,aem.df, adjR2thresh=Space.r2a)
+
+#Which habitat variables are significant for each? (10 points)
+
+Neither habitat variables are found to be significant with pvalues calcualted to be greater than 0.05. The Sprawlers had a pvalue closest to signifigance at 0.051.
+
+
 #Part 4: How do you expect selecting both the spatial and the habitat variables would change the results of the RDAs from Part 1 above? (5 points)
   #(You do not need to redo the RDAs, unless you *want* to.)
+
+
+Selecting both would make them closer and there would be more of a difference between the corrolation spacial distance and habiat, making them more dependent of eachother
