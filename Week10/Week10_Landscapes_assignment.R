@@ -24,8 +24,8 @@ Swimmers.mat <- as.matrix(Swimmers.csv)
 Diptera.csv <- read.csv("Diptera.csv")
 Diptera.mat <- as.matrix(Diptera.csv)
 
-Sprawlers.csv<- read.csv("Sprawlers.csv")
-Sprawlers.mat <- as.matrix(Sprawlers.csv)
+Clingers.csv<- read.csv("Clingers.csv")
+Clingers.mat <- as.matrix(Clingers.csv)
 
 nb<-cell2nb(3,30,"queen")
 nb1 <- droplinks(nb, 19, sym=TRUE)
@@ -59,7 +59,7 @@ RsquareAdj(HabNoSpace.rda)
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
-Constrained for the SpaceNoHabitat has the larger proportion at 0.4183, therefore this means that space and habitat can act independently on a community. Diptera have the strongest flight ability, therefore their habitat type is not restrained by distance they would need to travel.
+#Constrained for the SpaceNoHabitat has the larger proportion at 0.4336, therefore this means that space and habitat can act independently on a community. Diptera have the strongest flight ability, therefore their habitat type is not restrained by distance they would need to travel.
 
 
 #Part 3: For each of your chosen groups of bugs, perform variable selection for the habitat data rather than the AEM data.
@@ -74,23 +74,25 @@ Constrained for the SpaceNoHabitat has the larger proportion at 0.4183, therefor
     #AveAr = The average size of rocks where each sample was collected
 
 
-Sprawlers.rda <- rda(HabitatbyPatch.mat, as.data.frame(aem.df))
-Sprawlers.r2a <- RsquareAdj(Space.rda)$adj.r.squared
+Clingers.rda <- rda(Clingers.mat, as.data.frame(HabitatbyPatch.mat))
+Habitat.r2a <- RsquareAdj(Clingers.rda)$adj.r.squared
 
 aem.fwd <- forward.sel(HabitatbyPatch.mat,aem.df, adjR2thresh=Space.r2a)
 
-Diptera.rda <- rda(HabitatbyPatch.mat, as.data.frame(aem.df))
+Diptera.rda <- rda(HabitatbyPatch.mat, as.data.frame(HabitatbyPatch.mat))
 Diptera.r2a <- RsquareAdj(Space.rda)$adj.r.squared
 
 aem.fwd <- forward.sel(HabitatbyPatch.mat,aem.df, adjR2thresh=Space.r2a)
 
+aem.fwd
+
 #Which habitat variables are significant for each? (10 points)
 
-Neither habitat variables are found to be significant with pvalues calcualted to be greater than 0.05. The Sprawlers had a pvalue closest to signifigance at 0.051.
+Neither habitat variables are found to be significant because their pvalues are not calculated to be greater than 0.05. The Sprawlers had a pvalue closest to signifigance at 0.056.
 
 
 #Part 4: How do you expect selecting both the spatial and the habitat variables would change the results of the RDAs from Part 1 above? (5 points)
   #(You do not need to redo the RDAs, unless you *want* to.)
 
 
-Selecting both would make them closer and there would be more of a difference between the corrolation spacial distance and habiat, making them more dependent of eachother
+Selecting both would make them father and there would be more of a difference between the corrolation spacial distance and habiat, making them more dependent of eachother.
