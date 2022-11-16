@@ -56,11 +56,14 @@ HabNoSpace.rda
 anova(HabNoSpace.rda, perm.max = 10000)
 RsquareAdj(HabNoSpace.rda)
 
+#Where are the clinger RDAs??
+
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
 Constrained for the SpaceNoHabitat has the larger proportion at 0.4336, therefore this means that space and habitat can act independently on a community. Diptera have the strongest flight ability, therefore their habitat type is not restrained by distance they would need to travel.
-
+#The value for either space or habitat alone does not say anything about whether they can act independently on one another.
+#How do you know Diptera have the strongest flight ability? You didn't use your results to compare them...
 
 #Part 3: For each of your chosen groups of bugs, perform variable selection for the habitat data rather than the AEM data.
   # Definitions for the habitat column names:
@@ -96,3 +99,7 @@ For Clingers, the variable of Depth has a significant p value of 0.001. For Dipt
 
 
 Selecting both spacial and habitat variables would increase the significance of habitat because relationships with habitats vary with the significance of space that controls spacial relationships.
+
+
+#This might be true, but it's tangential to the question. Without selecting variables for habitat, you are likely overfitting that part of the model.
+#So the "real" influence of space is likely much stronger than what you generated with the above models.
