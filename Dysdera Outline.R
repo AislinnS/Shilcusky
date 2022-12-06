@@ -5,6 +5,8 @@ library(spdep)
 library(adespatial)
 library(vegan)
 
-Dysdera.csv <- read.csv("Dysdera.csv", header =T)
-Dysdera.mat <- as.matrix(Dysdera.csv[,-1])
+df <- read.csv("Dysdera.csv", header =T)
+Dysdera.mat <- as.matrix(df)
 
+Dysdera.mat[,c(-2,-3,-5,-8,-9)]
+group <- Dysdera.mat[,c(-2,-3,-5,-8,-9)]
