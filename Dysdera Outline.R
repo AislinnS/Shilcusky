@@ -1,13 +1,13 @@
 setwd("C:/Users/shilcusky/Documents/GitHub/Shilcusky/Dysdera Project")
 
-install.packages("read.csv")
-library(read.csv)
+install.packages("read_csv")
+library(read_csv)
 
 library(spdep)
 library(adespatial)
 library(vegan)
 
-
+getwd()
 df1 <- read.csv("Dysdera.csv", header =T)
 Dysdera <- df1[,c(-2,-3,-5,-8,-9)]
 subset(Dysdera, Dysdera$Island == "Lanzarote")
