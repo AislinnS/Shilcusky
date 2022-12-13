@@ -24,6 +24,44 @@ FiveIslands <- subset(Dysdera, Dysdera$Island == "Lanzarote")
 table(Subset$Species)
 FiveIslands <- as.matrix(Subset)
 
+
+FiveIslands$Count <- c(1,2,3,4,5,6,7,8,9,10)
+
+
+
+
+
+
+
+
+
+?sum
+sum(FiveIslands$Species == "Dysdera alegranzaensis Wunderlich, 1992" , na.rm=TRUE)
+
+
+
+df['new'] <- c(3, 3, 6, 7, 8, 12)
+
+
+count.fields(FiveIslands$Species)
+Count(Species)
+
+SpeciesCount <- aggregate(FiveIslands, by= list(Species), FUN ="sum"
+
+
+
+Species <- aggregate(FiveIslands[sum)table])
+sum(table(FiveIslands$Species))
+
+
+
+
+
+
+
+
+aggregate(Fiveislands, by)
+
 agg_mean = aggregate(iris[,1:4],by=list(iris$Species),FUN=mean, na.rm=TRUE)
 agg_mean
 
