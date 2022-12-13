@@ -25,7 +25,14 @@ table(Subset$Species)
 FiveIslands <- as.matrix(Subset)
 
 
-FiveIslands$Count <- c(1,2,3,4,5,6,7,8,9,10)
+Subset$Count <- 1
+df2<- aggregate(Subset$Count, by= list(Subset$Species),FUN=sum)
+
+
+
+
+
+
 
 
 
