@@ -34,7 +34,7 @@ df2<- aggregate(Subset$Count, by= list(Subset$Species),FUN=sum)
 SpeciesCount <- df2
 
 #Plotting location of all 74 individuals on Lanzarote relative to Latitude and Longitude
-plot(Subset$Longitude,Subset$Latitude)
+plot(Subset$Longitude,Subset$Latitude, col = 10)
 summary(Subset)
 #Added to help obtain the smoothest rarefaction curve pathway, small increments
 bb <-0.053
@@ -43,31 +43,31 @@ dd <-0.01
 #Creating more precise quadrants to obtain the number of species from. Increasing area by increments of 0.01
 #growth = delta*Area number + base
 Area1<- subset(Subset, Subset$Latitude>(29.16-(bb)) & Subset$Latitude<(29.19+(bb)) & Subset$Longitude>(-13.57-(bb)) & Subset$Longitude<(-13.57+(bb)))
-plot(Area1$Longitude,Area1$Latitude)
+plot(Area1$Longitude,Area1$Latitude, col = 10)
 Area1Count<- aggregate(Area1$Count, by= list(Area1$Species),FUN=sum)
 
 Area2<- subset(Subset, Subset$Latitude>(29.16-(bb+1*dd)) & Subset$Latitude<(29.19+(bb+1*dd)) & Subset$Longitude>(-13.57-(bb+1*dd)) & Subset$Longitude<(-13.57+(bb+1*dd)))
-plot(Area2$Longitude,Area2$Latitude)
+plot(Area2$Longitude,Area2$Latitude, col = 10)
 Area2Count<- aggregate(Area2$Count, by= list(Area2$Species),FUN=sum)
 
 Area3<- subset(Subset, Subset$Latitude>(29.16-(bb+2*dd)) & Subset$Latitude<(29.19+(bb+2*dd)) & Subset$Longitude>(-13.57-(bb+2*dd)) & Subset$Longitude<(-13.57+(bb+2*dd)))
-plot(Area3$Longitude,Area3$Latitude)
+plot(Area3$Longitude,Area3$Latitude, col = 10)
 Area3Count<- aggregate(Area3$Count, by= list(Area3$Species),FUN=sum)
 
 Area4<- subset(Subset, Subset$Latitude>(29.16-(bb+3*dd)) & Subset$Latitude<(29.19+(bb+3*dd))& Subset$Longitude>(-13.57-(bb+3*dd)) & Subset$Longitude<(-13.57+(bb+3*dd)))
-plot(Area4$Longitude,Area4$Latitude)
+plot(Area4$Longitude,Area4$Latitude, col = 10)
 Area4Count<- aggregate(Area4$Count, by= list(Area4$Species),FUN=sum)
 
 Area5<- subset(Subset, Subset$Latitude>(29.16-0.205) & Subset$Latitude<(29.19+0.205) & Subset$Longitude>(-13.57-0.205) & Subset$Longitude<(-13.57+0.205))
-plot(Area5$Longitude,Area5$Latitude)
+plot(Area5$Longitude,Area5$Latitude, col = 10)
 Area5Count<- aggregate(Area5$Count, by= list(Area5$Species),FUN=sum)
 
 Area6<- subset(Subset, Subset$Latitude>(29.16-0.23) & Subset$Latitude<(29.19+0.23) & Subset$Longitude>(-13.57-0.23) & Subset$Longitude<(-13.57+0.23))
-plot(Area6$Longitude,Area6$Latitude)
+plot(Area6$Longitude,Area6$Latitude, col = 10)
 Area6Count<- aggregate(Area6$Count, by= list(Area6$Species),FUN=sum)
 
 Area7<- subset(Subset, Subset$Latitude>(29.16-0.4) & Subset$Latitude<(29.19+0.4) & Subset$Longitude>(-13.57-0.4) & Subset$Longitude<(-13.57+0.4))
-plot(Area7$Longitude,Area7$Latitude)
+plot(Area7$Longitude,Area7$Latitude, col = 10)
 Area7Count<- aggregate(Area7$Count, by= list(Area7$Species),FUN=sum)
 
 #The area of each quadrant has been calculated in a separate excel sheet by squaring the edge distance, which was configurated by increasing the scalar values, which were found by increasing (0.053) by increments of dd (0.01) for each area
@@ -77,8 +77,10 @@ Richness <-c(3,4,5,5,5,5,5)
 
 #Create a new dataframe of Area by Richness
 RichnessArea <- data.frame(Area,Richness)
-#Plot the richness graph, add main heading and change x and y labels
-plot(RichnessArea$Area, RichnessArea$Richness, type = "b", xlab = "Area (degrees squared)", ylab = "Number of species", main = "Number of species per Area")
+#Plot the rarefaction curve to find species richness, add main heading and change x and y labels, add some color and pizazz 
+plot(RichnessArea$Area, RichnessArea$Richness, type = "b", xlab = "Area (degrees squared)", ylab = "Number of species", main = "Number of species per Area", pch =10, col= 2)
+
+#Rarefaction Curve Done, Histogram Time
 
 #The columns including latitude and longitude are being excluded from the original matrix
 DysderaAndBright<- Brightness.mat[,c(-2,-3)]
