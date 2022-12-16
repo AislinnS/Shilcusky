@@ -1,5 +1,5 @@
 #Set working directory
-setwd("C:/Shilcusky/Documents/GitHub/Shilcusky/Dysdera Project")
+setwd("C:/GitHub/Shilcusky/Dysdera Project")#directory is still wrong.
 #Load in data packages for later use
 library(vegan)
 
@@ -23,10 +23,10 @@ merge(Dysdera,Brightness, by=c("Latitude","Longitude"))
 FiveIslands <- subset(Dysdera, Dysdera$Island == "Lanzarote")
 table(Subset$Species)
 #Creating a usable matrix with the data
-FiveIslands <- as.matrix(Subset)
+FiveIslands <- as.matrix(Subset)#This was alread in a useable format - this line made everything character values instead of numeric
 
 #Function to give each row its own unique number
-Subset$Count <- 1
+Subset$Count <- 1 #This does not give any rows a unique value, just identical values.
 #Using an aggregate function to obtain a sum of individuals present for each of the 5 Dysdera species
 df2<- aggregate(Subset$Count, by= list(Subset$Species),FUN=sum)
 
@@ -41,6 +41,7 @@ bb <-0.053
 dd <-0.01
 
 #Creating more precise quadrants to obtain the number of species from. Increasing area by increments of 0.01
+#Creative way of making "sample" areas! I will give you props for that.
 #growth = delta*Area number + base
 Area1<- subset(Subset, Subset$Latitude>(29.16-(bb)) & Subset$Latitude<(29.19+(bb)) & Subset$Longitude>(-13.57-(bb)) & Subset$Longitude<(-13.57+(bb)))
 plot(Area1$Longitude,Area1$Latitude, col = 10)
@@ -71,22 +72,30 @@ plot(Area7$Longitude,Area7$Latitude, col = 10)
 Area7Count<- aggregate(Area7$Count, by= list(Area7$Species),FUN=sum)
 
 #The area of each quadrant has been calculated in a separate excel sheet by squaring the edge distance, which was configurated by increasing the scalar values, which were found by increasing (0.053) by increments of dd (0.01) for each area
+#This should have been done in R.
 Area <- c(0.011236, 0.015876,0.021316,0.027556, 0.034596, 0.042436, 0.051076)
 #The aggregate function was used to do a species count of each Area
+#Then why are you manually entering numbers as the richness?
 Richness <-c(3,4,5,5,5,5,5)
 
 #Create a new dataframe of Area by Richness
+#No way to replicate how you created these data.
 RichnessArea <- data.frame(Area,Richness)
 #Plot the rarefaction curve to find species richness, add main heading and change x and y labels, add some color and pizazz 
 plot(RichnessArea$Area, RichnessArea$Richness, type = "b", xlab = "Area (degrees squared)", ylab = "Number of species", main = "Number of species per Area", pch =10, col= 2)
-
+#This does not actually perform a rarefaction, just displays what you expect it to be.
 #Rarefaction Curve Done, Histogram Time
 
 #The columns including latitude and longitude are being excluded from the original matrix
-DysderaAndBright<- Brightness.mat[,c(-2,-3)]
+DysderaAndBright<- as.data.frame(Brightness.mat[,c(-2,-3)])
 #A histogram will be created to graph artificial brightness against number of individuals
 hist(DysderaAndBright, xlab = "Artificial Brightness (μcd/m2)", ylab = "Number of Individuals", main ="Dysdera Distribution in Relation to Artificial Brightness", col = "orange", border = "black")
+#A histogram only displays a single vector against frequency values of that vector. Renaming the axes doesn't change that.
+#This figure does not display what you claim it does. It is a combined histogram of all values in the table.
 
+#This is what you were trying to do (I think):
+plot(DysderaAndBright$Dysdera~DysderaAndBright$Artificial.Light)
+#Which does not show the relationship you claim it does.
 ############AND SCENE##############
 
 
